@@ -1,1 +1,2 @@
-Some animation with Golang
+experiments in webstuff with golang
+
