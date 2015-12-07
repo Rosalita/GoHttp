@@ -1,0 +1,1 @@
+Some animation with Golang
