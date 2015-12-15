@@ -7,10 +7,17 @@ import (
   "io/ioutil"
   "net/http"
   "os"
+  "strings"
 )
 
 func main (){
   for _, url := range os.Args[1:]{
+    //check to see if the url provided starts with http://
+     if strings.HasPrefix(url, "http://") == false{
+       //if it doesn't, then add the http://
+       url = "http://" + url
+       fmt.Printf("url didn't start with http:// so it was changed to %s\n", url)
+       }
      // make a http request and if no error return the response in a struct called resp
     resp, err := http.Get(url)
     if err != nil { // if error is not nil, then there is an error
