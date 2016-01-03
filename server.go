@@ -23,6 +23,26 @@ func main() {
 
 // handler echoes the Path component of the requested url and increments a counter.
 func handler(w http.ResponseWriter, r *http.Request) {
+
+	// print method, url and protocol
+	fmt.Fprintf(w, "%s %s %s\n", r.Method, r.URL, r.Proto)
+
+	// loop through header and print each item
+	for k, v := range r.Header {
+		fmt.Fprintf(w, "Header[%q] = %q\n", k, v)
+	}
+	// print host
+	fmt.Fprintf(w, "Host = %q\n", r.Host)
+	// print remote address
+	fmt.Fprintf(w, "RemoteAddr = %q\n", r.RemoteAddr)
+	if err := r.ParseForm(); err != nil {
+		log.Print(err)
+	}
+	//loop through the form data and print each item
+	for k, v := range r.Form {
+		fmt.Fprintf(w, "Form[%q] = %q\n", k, v)
+	}
+
 	mu.Lock() //to prevent two requests updating at the same time, lock before incrementing
 	count++
 	mu.Unlock() // and unlock after incrementing, this prevents "race condition" bugs
